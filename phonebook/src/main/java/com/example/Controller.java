@@ -16,7 +16,7 @@ public class Controller {
         while (temp) {
             String name = vi.input("Enter name: ");
             String surname = vi.input("Enter surname: ");
-            String phoneNumber = p.validateNumbers(addPhone("Enter phone number: "));
+            String phoneNumber = p.validateNumbers(addPhone("Please, enter your phone number using only numbers: "));
             String dateOfBirth = vi.input("Enter date of birth: ");
             String sex = vi.input("Enter the gender of the person: ");
 
@@ -28,8 +28,6 @@ public class Controller {
     public String addPhone(String string) {
         System.out.println(string);
         Scanner sc = new Scanner(System.in);
-
-        System.out.println("Please, enter your phone number using only numbers: ");
 
         String tempNumber = sc.nextLine();
 
