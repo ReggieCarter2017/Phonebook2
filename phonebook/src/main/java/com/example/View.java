@@ -5,7 +5,8 @@ import java.util.Scanner;
 public class View {
     Scanner sc = new Scanner(System.in);
 
-    public String input() {
+    public String input(String msg) {
+        System.out.println(msg);
         try {
             String string = sc.nextLine();
             if (!string.isBlank()) {
