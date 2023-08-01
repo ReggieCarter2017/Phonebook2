@@ -9,7 +9,7 @@ public class View {
         System.out.println(msg);
         try {
             String string = sc.nextLine();
-            if (!string.isBlank()) {
+            if (string.isBlank()) {
                 throw new StringIsBlankException("You entered an empty value.");
             }
             else {
