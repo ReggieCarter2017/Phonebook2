@@ -3,9 +3,10 @@ package com.example;
 public class Person {
     private String name;
     private String surname;
+    private String fatherName;
     private String phoneNumber;
     private String dateOfBirth;
-    private String sex;
+    private String gender;
 
     public String getName() {
         return name;
@@ -39,30 +40,38 @@ public class Person {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public String getSex() {
-        return sex;
+    public String getGender() {
+        return gender;
     }
 
-    public void setSex(String sex) {
-        this.sex = sex;
+    public void setGender(String sex) {
+        this.gender = sex;
     }
 
-    public Person()
-    {
+    public String getFatherName() {
+        return fatherName;
+    }
+
+    public void setFatherName(String fatherName) {
+        this.fatherName = fatherName;
+    }
+
+    public Person() {
         name = null;
         surname = null;
+        fatherName = null;
         phoneNumber = null;
         dateOfBirth = null;
-        sex = null;
+        gender = null;
     }
 
-    public Person(String name, String surname, String phoneNumber, String dateOfBirth, String sex)
-    {
+    public Person(String name, String surname, String fatherName, String phoneNumber, String dateOfBirth, String sex) {
         this.name = name;
         this.surname = surname;
+        this.fatherName = fatherName;
         this.phoneNumber = phoneNumber;
         this.dateOfBirth = dateOfBirth;
-        this.sex = sex;
+        this.gender = sex;
     }
 
 }

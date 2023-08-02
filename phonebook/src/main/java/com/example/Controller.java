@@ -10,45 +10,76 @@ public class Controller {
     public void runProgram() {
         View vi = new View();
         Phone p = new Phone();
+        SaveAFile save = new SaveAFile();
 
         boolean temp = true;
 
         while (temp) {
             String name = vi.input("Enter name: ");
             String surname = vi.input("Enter surname: ");
-            String phoneNumber = p.validateNumbers(addPhone("Please, enter your phone number using only numbers: "));
+            String fatherName = vi.input("Enter father name or type '-' if none: ");
+            String phoneNumber = p.validateNumbers();
             String dateOfBirth = vi.input("Enter date of birth: ");
-            String sex = vi.input("Enter the gender of the person: ");
+            String gender = handleGender();
 
-            addPerson(new Person(name, surname, phoneNumber, dateOfBirth, sex));
+            addPerson(new Person(name, surname, fatherName, phoneNumber, dateOfBirth, gender));
             showPerson();
+            save.saveTxt(new Person(name, surname, fatherName, phoneNumber, dateOfBirth, gender));
+            
+
         }
     }
 
-    public String addPhone(String string) {
-        System.out.println(string);
-        Scanner sc = new Scanner(System.in);
-
-        String tempNumber = sc.nextLine();
-
-        return tempNumber;
-
-    }
-
-    public void addPerson(Person p)
-    {
+    public void addPerson(Person p) {
         persons.add(p);
     }
 
-
-    public void showPerson()
-    {
+    public void showPerson() {
         for (Person e : persons)
-        System.out.println("Name: " + e.getName()
-        + "\nSurname: " + e.getSurname() +
-        "\nPhone number: " + e.getPhoneNumber() +
-        "\nDate of birth: " + e.getDateOfBirth()
-        + "\nGender: " + e.getSex());
+            System.out.println("Name: " + e.getName()
+                    + "\nSurname: " + e.getSurname() +
+                    "\nFather name: " + e.getFatherName() +
+                    "\nPhone number: " + e.getPhoneNumber() +
+                    "\nDate of birth: " + e.getDateOfBirth()
+                    + "\nGender: " + e.getGender());
+    }
+
+    public String handleGender() {
+        View vi = new View();
+
+        while (true) {
+            String gender = vi.input("Enter gender: ");
+            try {
+                if (gender.toLowerCase().equals("f") || gender.toLowerCase().equals("m")) {
+                    return gender;
+                } else {
+                    throw new WrongGenderInputException(
+                            "Invalid declaration of gender. Please, type 'f' if you are female or 'm' if male");
+                }
+            } catch (WrongGenderInputException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+
+    }
+
+    public String nadleDate()
+    {
+        View vi = new View();
+
+        while (true) {
+            String gender = vi.input("Enter gender: ");
+            try {
+                if (gender.toLowerCase().equals("f") || gender.toLowerCase().equals("m")) {
+                    return gender;
+                } else {
+                    throw new WrongGenderInputException(
+                            "Invalid declaration of gender. Please, type 'f' if you are female or 'm' if male");
+                }
+            } catch (WrongGenderInputException e) {
+                System.out.println(e.getMessage());
+            }
+        }
     }
 
 }
