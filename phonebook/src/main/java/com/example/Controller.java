@@ -63,7 +63,7 @@ public class Controller {
 
     }
 
-    public String nadleDate()
+    public String handleDate()
     {
         View vi = new View();
 
