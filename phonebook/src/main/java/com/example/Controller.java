@@ -1,33 +1,32 @@
 package com.example;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.DateTimeException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Controller {
-
+    View vi = new View();
     ArrayList<Person> persons = new ArrayList<>();
-
     public void runProgram() {
-        View vi = new View();
+
         Phone p = new Phone();
         SaveAFile save = new SaveAFile();
 
-        boolean temp = true;
 
-        while (temp) {
             String name = vi.input("Enter name: ");
             String surname = vi.input("Enter surname: ");
             String fatherName = vi.input("Enter father name or type '-' if none: ");
             String phoneNumber = p.validateNumbers();
-            String dateOfBirth = vi.input("Enter date of birth: ");
+            String dateOfBirth = handleDate();
             String gender = handleGender();
 
             addPerson(new Person(name, surname, fatherName, phoneNumber, dateOfBirth, gender));
             showPerson();
             save.saveTxt(new Person(name, surname, fatherName, phoneNumber, dateOfBirth, gender));
-            
-
-        }
     }
 
     public void addPerson(Person p) {
@@ -45,19 +44,18 @@ public class Controller {
     }
 
     public String handleGender() {
-        View vi = new View();
 
         while (true) {
             String gender = vi.input("Enter gender: ");
             try {
-                if (gender.toLowerCase().equals("f") || gender.toLowerCase().equals("m")) {
+                if (gender.equalsIgnoreCase("f") || gender.equalsIgnoreCase("m")) {
                     return gender;
                 } else {
                     throw new WrongGenderInputException(
                             "Invalid declaration of gender. Please, type 'f' if you are female or 'm' if male");
                 }
             } catch (WrongGenderInputException e) {
-                System.out.println(e.getMessage());
+                e.printStackTrace();
             }
         }
 
@@ -65,21 +63,23 @@ public class Controller {
 
     public String handleDate()
     {
-        View vi = new View();
-
-        while (true) {
-            String gender = vi.input("Enter gender: ");
+        boolean temp = true;
+        while (temp) {
             try {
-                if (gender.toLowerCase().equals("f") || gender.toLowerCase().equals("m")) {
-                    return gender;
-                } else {
-                    throw new WrongGenderInputException(
-                            "Invalid declaration of gender. Please, type 'f' if you are female or 'm' if male");
-                }
-            } catch (WrongGenderInputException e) {
-                System.out.println(e.getMessage());
+                String stringDate = vi.input("Enter the date of birth using this format 'dd-MM-yyyy': ");
+                String[] array = stringDate.split("-");
+                if (Integer.parseInt(array[0]) > 31) throw new InvalidDateFormatException("The string is not a date.");
+                if (Integer.parseInt(array[1]) > 12 || Integer.parseInt(array[1]) < 1)
+                    throw new InvalidDateFormatException();
+                if (Integer.parseInt(array[2]) > 2023) throw new InvalidDateFormatException("The string is not a date.");
+
+                temp = false;
+                return stringDate;
+            } catch (InvalidDateFormatException e) {
+                e.printStackTrace();
             }
         }
+        return null;
     }
 
 }

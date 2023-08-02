@@ -20,7 +20,7 @@ public class View {
                     return string;
                 }
             } catch (StringIsBlankException e) {
-                System.out.println(e.getMessage());
+                e.printStackTrace();
             }
         }
         return null;

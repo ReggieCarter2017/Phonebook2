@@ -56,27 +56,24 @@ public class Phone {
                         }
                     }
 
-                } catch (TooMuchNumbersException e) {
-                    System.out.println(e.getMessage());
-                } catch (NumberFormatException s) {
-                    System.out.println(s.getMessage());
-                } catch (StringIsBlankException b) {
-                    System.out.println(b.getMessage());
+                } catch (TooMuchNumbersException | NumberFormatException | StringIsBlankException e) {
+                    e.printStackTrace();
                 }
 
-                if (finalNumber.toCharArray().length > 11) temp = false;
+            if (finalNumber.toCharArray().length > 11) temp = false;
         }
         return finalNumber;
 
     }
 
-    public static boolean checkIfParseable(String strNum) {
-        if (strNum == null) {
+    public static boolean checkIfParseable(String num) {
+        if (num == null) {
             return false;
         }
         try {
-            double d = Double.parseDouble(strNum);
+            double d = Double.parseDouble(num);
         } catch (NumberFormatException nfe) {
+            nfe.printStackTrace();
             return false;
         }
         return true;
